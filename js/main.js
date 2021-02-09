@@ -1,11 +1,19 @@
 //  object author
 
-const AVATAR = ['img/avatars/user01.png', 'img/avatars/user02.png', 'img/avatars/user03.png', 'img/avatars/user04.png', 'img/avatars/user05.png', 'img/avatars/user06.png', 'img/avatars/user07.png', 'img/avatars/user08.png'];
+const AVATAR = [
+  'img/avatars/user01.png',
+  'img/avatars/user02.png',
+  'img/avatars/user03.png',
+  'img/avatars/user04.png',
+  'img/avatars/user05.png',
+  'img/avatars/user06.png',
+  'img/avatars/user07.png',
+  'img/avatars/user08.png',
+];
 
 //  object offer
 
 const TITLE = ['Аппартаменты на любой вкус!', 'Вам понравится!', 'Бронируйте, не пожалеете!', 'У нас печеньки!'];
-const ADDRESS = ['{{location.x}}', '{{location.y}}'];
 const TYPE = ['palace', 'flat', 'house', 'bungalow'];
 const CHECKIN = ['12:00', '13:00', '14:00'];
 const CHECKOUT = ['12:00', '13:00', '14:00'];
@@ -58,13 +66,15 @@ function getRandomElementFromArray(array) {
 
 
 function createAdvertisement() {
+  const xRandomLocation = getRandomNumberWithComma(35.65000, 35.70000, 5);
+  const yRandomLocation = getRandomNumberWithComma(139.70000, 139.80000, 5);
   return {
     author: {
       avatar: getRandomElementFromArray(AVATAR),
     },
     offer: {
       title: getRandomElementFromArray(TITLE),
-      address: getRandomElementFromArray(ADDRESS),
+      address: [xRandomLocation, yRandomLocation],
       price: getRandomNumber(5000, 20000),
       type: getRandomElementFromArray(TYPE),
       rooms: getRandomNumber(1, 4),
@@ -76,12 +86,12 @@ function createAdvertisement() {
       photos: getRandomElementFromArray(PHOTOS),
     },
     location: {
-      x: getRandomNumberWithComma(35.65000, 35.70000, 5),
-      y: getRandomNumberWithComma(139.70000, 139.80000, 5),
+      x: xRandomLocation,
+      y: yRandomLocation,
     },
   }
 }
 
 const allAdvertisements = new Array(ADVERTISEMENT_NUMBER).fill().map(() => createAdvertisement());
 
-//  console.log(allAdvertisements);
+// console.log(allAdvertisements);
