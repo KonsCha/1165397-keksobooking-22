@@ -13,13 +13,47 @@ const AVATAR = [
 
 //  object offer
 
-const TITLE = ['Аппартаменты на любой вкус!', 'Вам понравится!', 'Бронируйте, не пожалеете!', 'У нас печеньки!'];
-const TYPE = ['palace', 'flat', 'house', 'bungalow'];
-const CHECKIN = ['12:00', '13:00', '14:00'];
-const CHECKOUT = ['12:00', '13:00', '14:00'];
-const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-const DESCRIPTION = ['В каждом номере бар', 'Душ с горячей водой', 'Номер для не курящих', 'Джакузи в номере'];
-const PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+const TITLE = [
+  'Аппартаменты на любой вкус!',
+  'Вам понравится!',
+  'Бронируйте, не пожалеете!',
+  'У нас печеньки!'
+];
+const TYPE = [
+  'palace',
+  'flat',
+  'house',
+  'bungalow'
+];
+const CHECKIN = [
+  '12:00',
+  '13:00',
+  '14:00'
+];
+const CHECKOUT = [
+  '12:00',
+  '13:00',
+  '14:00'
+];
+const FEATURES = [
+  'wifi',
+  'dishwasher',
+  'parking',
+  'washer',
+  'elevator',
+  'conditioner'
+];
+const DESCRIPTION = [
+  'В каждом номере бар',
+  'Душ с горячей водой',
+  'Номер для не курящих',
+  'Джакузи в номере'
+];
+const PHOTOS = [
+  'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
+  'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
+  'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
+];
 
 //  object location
 
@@ -74,7 +108,7 @@ function createAdvertisement() {
     },
     offer: {
       title: getRandomElementFromArray(TITLE),
-      address: [xRandomLocation, yRandomLocation],
+      address: `${xRandomLocation}, ${yRandomLocation}`,
       price: getRandomNumber(5000, 20000),
       type: getRandomElementFromArray(TYPE),
       rooms: getRandomNumber(1, 4),
@@ -94,4 +128,4 @@ function createAdvertisement() {
 
 const allAdvertisements = new Array(ADVERTISEMENT_NUMBER).fill().map(() => createAdvertisement());
 
-// console.log(allAdvertisements);
+//  console.log(allAdvertisements);
