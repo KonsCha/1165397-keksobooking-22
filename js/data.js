@@ -22,10 +22,10 @@ const TITLE = [
   'У нас печеньки!',
 ];
 const TYPE = [
-  'palace',
-  'flat',
-  'house',
-  'bungalow',
+  {'palace': 'Дворец'},
+  {'flat': 'Квартира'},
+  {'house': 'Дом'},
+  {'bungalow': 'Бунгало'},
 ];
 const CHECKIN = [
   '12:00',
