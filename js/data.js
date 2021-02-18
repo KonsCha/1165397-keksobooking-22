@@ -21,12 +21,12 @@ const TITLE = [
   'Бронируйте, не пожалеете!',
   'У нас печеньки!',
 ];
-const TYPE = [
-  {'palace': 'Дворец'},
-  {'flat': 'Квартира'},
-  {'house': 'Дом'},
-  {'bungalow': 'Бунгало'},
-];
+const TYPE = {
+  'palace': 'Дворец',
+  'flat': 'Квартира',
+  'house': 'Дом',
+  'bungalow': 'Бунгало',
+};
 const CHECKIN = [
   '12:00',
   '13:00',
@@ -64,7 +64,7 @@ const PHOTOS = [
 
 const ADVERTISEMENT_NUMBER = 10;
 
-function createAdvertisement() {
+const createAdvertisement = () => {
   const xRandomLocation = getRandomNumberWithComma(35.65000, 35.70000, 5);
   const yRandomLocation = getRandomNumberWithComma(139.70000, 139.80000, 5);
   return {

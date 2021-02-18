@@ -2,7 +2,7 @@
 //  Дополнительное объяснение метода https://askdev.ru/q/generaciya-sluchaynyh-celyh-chisel-v-javascript-v-opredelennom-diapazone-296/
 //  Функция получения случайного числа
 
-function getRandomNumber(min, max) {
+const getRandomNumber = (min, max) => {
   if (min < 0 || max < 0) {
     return;
   }
@@ -17,7 +17,7 @@ function getRandomNumber(min, max) {
 //  Объяснение метода toFixed: https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed
 //  Функция получения случайного числа с плавающей точкой
 
-function getRandomNumberWithComma(min, max, numberAfterComma) {
+const getRandomNumberWithComma = (min, max, numberAfterComma) => {
   if (min < 0 || max < 0) {
     return;
   }
@@ -30,7 +30,7 @@ function getRandomNumberWithComma(min, max, numberAfterComma) {
 
 //  Функция получения случайного элемента из массива строк
 
-function getRandomElementFromArray(array) {
+const getRandomElementFromArray = (array) => {
   return array[getRandomNumber(0, array.length - 1)];
 }
 
