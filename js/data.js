@@ -75,7 +75,7 @@ const createAdvertisement = () => {
       title: getRandomElementFromArray(TITLE),
       address: `${xRandomLocation}, ${yRandomLocation}`,
       price: getRandomNumber(5000, 20000),
-      type: getRandomElementFromArray(TYPE),
+      type: getRandomElementFromArray(Object.values(TYPE)),
       rooms: getRandomNumber(1, 4),
       guests: getRandomNumber(1, 10),
       checkin: getRandomElementFromArray(CHECKIN),
