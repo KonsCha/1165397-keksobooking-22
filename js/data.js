@@ -21,12 +21,12 @@ const TITLE = [
   'Бронируйте, не пожалеете!',
   'У нас печеньки!',
 ];
-const TYPE = [
-  'palace',
-  'flat',
-  'house',
-  'bungalow',
-];
+const TYPE = {
+  'palace': 'Дворец',
+  'flat': 'Квартира',
+  'house': 'Дом',
+  'bungalow': 'Бунгало',
+};
 const CHECKIN = [
   '12:00',
   '13:00',
@@ -64,7 +64,7 @@ const PHOTOS = [
 
 const ADVERTISEMENT_NUMBER = 10;
 
-function createAdvertisement() {
+const createAdvertisement = () => {
   const xRandomLocation = getRandomNumberWithComma(35.65000, 35.70000, 5);
   const yRandomLocation = getRandomNumberWithComma(139.70000, 139.80000, 5);
   return {
@@ -75,7 +75,7 @@ function createAdvertisement() {
       title: getRandomElementFromArray(TITLE),
       address: `${xRandomLocation}, ${yRandomLocation}`,
       price: getRandomNumber(5000, 20000),
-      type: getRandomElementFromArray(TYPE),
+      type: getRandomElementFromArray(Object.values(TYPE)),
       rooms: getRandomNumber(1, 4),
       guests: getRandomNumber(1, 10),
       checkin: getRandomElementFromArray(CHECKIN),
