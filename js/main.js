@@ -10,3 +10,5 @@ const allAdvertisements = new Array(ADVERTISEMENT_NUMBER).fill().map(() => creat
 
 // const mapCanvas = document.querySelector('#map-canvas');
 // // mapCanvas.appendChild(exampleCard);
+
+export {allAdvertisements};
