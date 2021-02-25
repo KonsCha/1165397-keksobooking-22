@@ -9,6 +9,7 @@ const allAdvertisements = new Array(ADVERTISEMENT_NUMBER).fill().map(() => creat
 // const exampleCard = createCard(allAdvertisements[0]);
 
 // const mapCanvas = document.querySelector('#map-canvas');
-// // mapCanvas.appendChild(exampleCard);
+// mapCanvas.appendChild(exampleCard);
 
 export {allAdvertisements};
+

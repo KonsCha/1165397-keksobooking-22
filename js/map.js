@@ -1,7 +1,7 @@
 import {inactiveState, activeState, address} from './form.js';
 import {xRandomLocation, yRandomLocation} from './data.js';
 import {createCard} from './card.js';
-import {allAdvertisements} from './main.js';
+import {ADVERTISEMENT_NUMBER, createAdvertisement} from './data.js';
 
 const map = window.L.map('map-canvas')
   .on('load', () => {
@@ -37,6 +37,7 @@ window.L.tileLayer(
 //     icon: mainPinIcon,
 //   },
 // );
+const allAdvertisements = new Array(ADVERTISEMENT_NUMBER).fill().map(() => createAdvertisement());
 
 const createMarker = (lat, lng, icon) => {
   return window.L.marker({
@@ -50,25 +51,30 @@ const createMarker = (lat, lng, icon) => {
 }
 
 
-const createPin = (lon, lng) => {
-  return createMarker(lon, lng, window.L.icon({
-    iconUrl: 'img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-  },
-  ));
+const createPin = (lat, lng) => {
+  return  allAdvertisements.forEach((item) => {
+    createMarker(lat, lng, window.L.icon({
+      iconUrl: 'img/pin.svg',
+      iconSize: [40, 40],
+      iconAnchor: [20, 40],
+    },
+    ));
+  })
 }
 
-const createMainPin = (lon, lng) => {
-  return createMarker(lon, lng, window.L.icon({
+const createMainPin = (lat, lng) => {
+  return createMarker(lat, lng, window.L.icon({
     iconUrl: 'img/main-pin.svg',
     iconSize: [46, 46],
     iconAnchor: [23, 46],
   }));
 }
 
+
+const bluePins = createPin(xRandomLocation, yRandomLocation);
+
 const redPin = createMainPin (35.6895, 139.692);
-const bluePin = createPin (xRandomLocation, yRandomLocation);
+
 
 redPin.on('moveend', (evt) => {
   const markerTip = {xAddressValue: evt.target.getLatLng().lat,
@@ -105,9 +111,8 @@ const createBindPopupCard = (markerTip) => {
 // usualMarker.addTo(map);
 
 redPin
+  .addTo(map);
+
+bluePins
   .addTo(map)
   .bindPopup(createBindPopupCard);
-
-bluePin
-  .addTo(map)
-  .bindPopup(createBindPopupCard)
