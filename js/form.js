@@ -2,7 +2,7 @@ const formMain = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
 const address = formMain.querySelector('address');
 
-const inactiveState = () => {
+const deactiveState = () => {
   formMain.classList.add('ad-form--disabled');
 
   document.querySelectorAll('.ad-form input, .ad-form select, .ad-form textarea').forEach((element) => {
@@ -16,8 +16,6 @@ const inactiveState = () => {
     element.setAttribute('disabled', 'disabled');
   });
 };
-
-inactiveState();
 
 const activeState = () => {
   formMain.classList.remove('ad-form--disabled');
@@ -34,4 +32,4 @@ const activeState = () => {
   });
 }
 
-export {inactiveState, activeState, address};
+export {deactiveState, activeState, address};
