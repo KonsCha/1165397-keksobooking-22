@@ -1,8 +1,6 @@
 import {getRandomNumber, getRandomNumberWithComma, getRandomElementFromArray} from './utils.js';
 
 //  object author
-const xRandomLocation = getRandomNumberWithComma(35.65000, 35.70000, 5);
-const yRandomLocation = getRandomNumberWithComma(139.70000, 139.80000, 5);
 
 const AVATAR = [
   'img/avatars/user01.png',
@@ -93,4 +91,4 @@ const createAdvertisement = () => {
   }
 }
 
-export {ADVERTISEMENT_NUMBER, createAdvertisement, xRandomLocation, yRandomLocation};
+export {ADVERTISEMENT_NUMBER, createAdvertisement};

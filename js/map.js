@@ -1,6 +1,7 @@
 import {deactiveState, activeState} from './form.js';
 import {createCard} from './card.js';
 import {ADVERTISEMENT_NUMBER, createAdvertisement} from './data.js';
+import {createFetch} from './server-data.js';
 
 const TOKYO_LAT = 35.6895;
 const TOKYO_LNG = 139.692;
@@ -66,5 +67,5 @@ const allAdvertisements = new Array(ADVERTISEMENT_NUMBER).fill().map(createAdver
 allAdvertisements.forEach((advertisement) => {
   const pin = createPin(advertisement.location.x, advertisement.location.y);
   pin.addTo(map);
-  pin.bindPopup(() => createCard(advertisement));
+  pin.bindPopup(() => createCard(createFetch));
 });
