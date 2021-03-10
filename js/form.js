@@ -1,3 +1,6 @@
+import {sendData} from './server-data.js';
+import {adForm} from './map.js';
+
 const formMain = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
 const address = formMain.querySelector('address');
@@ -32,4 +35,27 @@ const activeState = () => {
   });
 }
 
-export {deactiveState, activeState, address};
+const setUserFormSubmit = () => {
+  formMain.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      () => onSuccess(),
+      () => onError(),
+      new FormData(evt.target),
+    );
+  });
+};
+
+const resetForm = () => {
+  const resetButton = formElement.querySelector('.ad-form__reset');
+
+  resetButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    adForm.reset();
+    mapFilters.reset();
+  })
+};
+
+
+export {deactiveState, activeState, address, setUserFormSubmit};
