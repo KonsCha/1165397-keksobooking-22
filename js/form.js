@@ -1,11 +1,11 @@
 import {sendData} from './server-data.js';
-import {adForm} from './map.js';
+import {adForm, resetMainMarker, setAddress} from './map.js';
 
 const formMain = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
-const address = formMain.querySelector('address');
+const address = formMain.querySelector('#address');
 
-const deactiveState = () => {
+const deactivateState = () => {
   formMain.classList.add('ad-form--disabled');
 
   document.querySelectorAll('.ad-form input, .ad-form select, .ad-form textarea').forEach((element) => {
@@ -20,7 +20,7 @@ const deactiveState = () => {
   });
 };
 
-const activeState = () => {
+const activateState = () => {
   formMain.classList.remove('ad-form--disabled');
 
   document.querySelectorAll('.ad-form input, .ad-form select, .ad-form textarea').forEach((element) => {
@@ -35,27 +35,38 @@ const activeState = () => {
   });
 }
 
+const resetForm = () => {
+  adForm.reset();
+  mapFilters.reset();
+  resetMainMarker();
+  setAddress();
+}
+
 const setUserFormSubmit = () => {
   formMain.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     sendData(
-      () => onSuccess(),
-      () => onError(),
+      () => {
+        resetForm();
+        console.log('Форма отправленна успешно');
+      },
+      () => {
+        console.log('Ошибка размещения объявления');
+      },
       new FormData(evt.target),
     );
   });
 };
 
-const resetForm = () => {
-  const resetButton = formElement.querySelector('.ad-form__reset');
+const setFormReset = () => {
+  const resetButton = formMain.querySelector('.ad-form__reset');
 
   resetButton.addEventListener('click', (evt) => {
     evt.preventDefault();
-    adForm.reset();
-    mapFilters.reset();
+    resetForm();
   })
 };
 
 
-export {deactiveState, activeState, address, setUserFormSubmit};
+export {deactivateState, activateState, address, setUserFormSubmit, setFormReset};

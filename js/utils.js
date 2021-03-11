@@ -36,8 +36,6 @@ const getRandomElementFromArray = (array) => {
   return array[getRandomNumber(0, array.length - 1)];
 }
 
-export {getRandomNumber, getRandomNumberWithComma, getRandomElementFromArray};
-
 // Дизайн блока с сообщением об ошибке
 
 const showAlert = (message) => {
@@ -61,4 +59,4 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 }
 
-export {showAlert};
+export {getRandomNumber, getRandomNumberWithComma, getRandomElementFromArray, showAlert};

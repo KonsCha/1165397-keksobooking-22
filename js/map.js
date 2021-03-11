@@ -1,12 +1,15 @@
-import {deactiveState, activeState} from './form.js';
+import {deactivateState, activateState, address} from './form.js';
 import {createCard} from './card.js';
 import {ADVERTISEMENT_NUMBER, createAdvertisement} from './data.js';
 
 const TOKYO_LAT = 35.6895;
 const TOKYO_LNG = 139.692;
+const MAIN_ZOOM = 8;
 
 const adForm = document.querySelector('.ad-form');
 const inputAddress = adForm.querySelector('#address');
+
+const map = window.L.map('map-canvas');
 
 const createMarker = (lat, lng, icon) => {
   return window.L.marker({
@@ -36,15 +39,14 @@ const createMainPin = (lat, lng) => {
 }
 
 const initMap = (allAdvertisements) => {
-  const map = window.L.map('map-canvas')
-  .on('load', () => {
-    activeState();
+  map.on('load', () => {
+    activateState();
     inputAddress.value = `${TOKYO_LAT}, ${TOKYO_LNG}`;
   })
   .setView({
     lat: TOKYO_LAT,
     lng: TOKYO_LNG,
-  }, 8);
+  }, MAIN_ZOOM);
 window.L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   {
@@ -67,4 +69,16 @@ window.L.tileLayer(
     pin.bindPopup(() => createCard(advertisement));
   });
 }
- export {initMap, adForm};
+
+const redPin = createMainPin(TOKYO_LAT, TOKYO_LNG);
+
+const resetMainMarker = () => {
+  redPin.setLatLng([TOKYO_LAT, TOKYO_LNG])
+  map.setView(new window.L.LatLng(TOKYO_LAT, TOKYO_LNG), MAIN_ZOOM);
+};
+
+const setAddress = () => {
+  address.value = `${TOKYO_LAT}, ${TOKYO_LNG}`;
+};
+
+ export {initMap, adForm, resetMainMarker, setAddress};
