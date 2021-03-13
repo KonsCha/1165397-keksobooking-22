@@ -59,4 +59,10 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 }
 
-export {getRandomNumber, getRandomNumberWithComma, getRandomElementFromArray, showAlert};
+//закрытие с помощью Esc
+
+const isEscEvent = (evt) => {
+  return evt.key === 'Escape' || evt.key === 'Esc';
+};
+
+export {getRandomNumber, getRandomNumberWithComma, getRandomElementFromArray, showAlert, isEscEvent};

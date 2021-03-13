@@ -1,3 +1,10 @@
+//  Cоблюдай порядок:
+//  Импорты
+//  Константы
+//  Объявления функций
+//  Выполнение алгоритмов
+//  Экспорты
+
 import {deactivateState, activateState, address} from './form.js';
 import {createCard} from './card.js';
 import {ADVERTISEMENT_NUMBER, createAdvertisement} from './data.js';
@@ -11,19 +18,19 @@ const inputAddress = adForm.querySelector('#address');
 
 const map = window.L.map('map-canvas');
 
-const createMarker = (lat, lng, icon) => {
+const createMarker = (lat, lng, draggable, icon) => {
   return window.L.marker({
     lat,
     lng,
   },
   {
-    draggable: true,
+    draggable,
     icon,
   })
 }
 
 const createPin = (lat, lng) => {
-  return createMarker(lat, lng, window.L.icon({
+  return createMarker(lat, lng, false, window.L.icon({
     iconUrl: 'img/pin.svg',
     iconSize: [40, 40],
     iconAnchor: [20, 40],
@@ -31,7 +38,7 @@ const createPin = (lat, lng) => {
 }
 
 const createMainPin = (lat, lng) => {
-  return createMarker(lat, lng, window.L.icon({
+  return createMarker(lat, lng, true, window.L.icon({
     iconUrl: 'img/main-pin.svg',
     iconSize: [46, 46],
     iconAnchor: [23, 46],
@@ -54,8 +61,6 @@ window.L.tileLayer(
   },
 ).addTo(map);
 
-  const redPin = createMainPin(TOKYO_LAT, TOKYO_LNG);
-
   redPin.on('moveend', (evt) => {
     inputAddress.value = `${evt.target.getLatLng().lat.toFixed(5)},
     ${evt.target.getLatLng().lng.toFixed(5)}`;
@@ -70,8 +75,6 @@ window.L.tileLayer(
   });
 }
 
-const redPin = createMainPin(TOKYO_LAT, TOKYO_LNG);
-
 const resetMainMarker = () => {
   redPin.setLatLng([TOKYO_LAT, TOKYO_LNG])
   map.setView(new window.L.LatLng(TOKYO_LAT, TOKYO_LNG), MAIN_ZOOM);
@@ -80,5 +83,7 @@ const resetMainMarker = () => {
 const setAddress = () => {
   address.value = `${TOKYO_LAT}, ${TOKYO_LNG}`;
 };
+
+const redPin = createMainPin(TOKYO_LAT, TOKYO_LNG);
 
  export {initMap, adForm, resetMainMarker, setAddress};

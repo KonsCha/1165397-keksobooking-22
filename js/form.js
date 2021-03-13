@@ -1,5 +1,13 @@
+//  Cоблюдай порядок:
+//  Импорты
+//  Константы
+//  Объявления функций
+//  Выполнение алгоритмов
+//  Экспорты
+
 import {sendData} from './server-data.js';
 import {adForm, resetMainMarker, setAddress} from './map.js';
+import {showSuccessMessage, showErrorMessage} from './messages.js';
 
 const formMain = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
@@ -48,12 +56,10 @@ const setUserFormSubmit = () => {
 
     sendData(
       () => {
+        showSuccessMessage();
         resetForm();
-        console.log('Форма отправленна успешно');
       },
-      () => {
-        console.log('Ошибка размещения объявления');
-      },
+      () => showErrorMessage(),
       new FormData(evt.target),
     );
   });
