@@ -5,7 +5,7 @@
 //  Выполнение алгоритмов
 //  Экспорты
 
-import {deactivateState, activateState, address} from './form.js';
+import {deactivateState, activateState, formMain} from './form.js';
 import {createCard} from './card.js';
 import {ADVERTISEMENT_NUMBER, createAdvertisement} from './data.js';
 
@@ -13,8 +13,7 @@ const TOKYO_LAT = 35.6895;
 const TOKYO_LNG = 139.692;
 const MAIN_ZOOM = 8;
 
-const adForm = document.querySelector('.ad-form');
-const inputAddress = adForm.querySelector('#address');
+const address = formMain.querySelector('#address');
 
 const map = window.L.map('map-canvas');
 
@@ -48,7 +47,7 @@ const createMainPin = (lat, lng) => {
 const initMap = (allAdvertisements) => {
   map.on('load', () => {
     activateState();
-    inputAddress.value = `${TOKYO_LAT}, ${TOKYO_LNG}`;
+    address.value = `${TOKYO_LAT}, ${TOKYO_LNG}`;
   })
   .setView({
     lat: TOKYO_LAT,
@@ -62,7 +61,7 @@ window.L.tileLayer(
 ).addTo(map);
 
   redPin.on('moveend', (evt) => {
-    inputAddress.value = `${evt.target.getLatLng().lat.toFixed(5)},
+    address.value = `${evt.target.getLatLng().lat.toFixed(5)},
     ${evt.target.getLatLng().lng.toFixed(5)}`;
   });
 
@@ -86,4 +85,4 @@ const setAddress = () => {
 
 const redPin = createMainPin(TOKYO_LAT, TOKYO_LNG);
 
- export {initMap, adForm, resetMainMarker, setAddress};
+ export {initMap,resetMainMarker, setAddress};
