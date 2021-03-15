@@ -3,12 +3,15 @@ import {formMain} from './form.js';
 const MIN_AD_LENGTH = 30;
 const MAX_AD_LENGTH = 100;
 const MAX_PRICE = 1000000;
+const MAX_ROOMS_NUMBER = 100;
 
 const type = formMain.querySelector('#type');
 const title = formMain.querySelector('#title');
 const price = formMain.querySelector('#price');
 const timeIn = formMain.querySelector('#timein');
 const timeOut = formMain.querySelector('#timeout');
+const roomNumber = formMain.querySelector('#room_number');
+const capacity = formMain.querySelector('#capacity');
 
 const minPriceTypes = {
   flat: 1000,
@@ -26,6 +29,19 @@ const getAdTitle = (value) => {
   }
   else {
     return '';
+  }
+}
+
+const checkAmount = () => {
+  const rooms = roomNumber.value;
+  const capacityAmount = capacity.value;
+
+  if (rooms === MAX_ROOMS_NUMBER && capacityAmount !== '0') {
+    capacity.setCustomValidity('Выберите вариант "Не для гостей"');
+  } else if (rooms < capacityAmount) {
+    capacity.setCustomValidity('Выберите меньшее число гостей');
+  } else {
+    capacity.setCustomValidity('');
   }
 }
 
@@ -59,3 +75,11 @@ price.addEventListener('input', () => {
     price.setCustomValidity('');
   }
 });
+
+capacity.addEventListener('change', () => {
+  checkAmount();
+})
+
+roomNumber.addEventListener('change', () => {
+  checkAmount();
+})
