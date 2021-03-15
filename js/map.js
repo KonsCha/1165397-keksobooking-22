@@ -5,9 +5,8 @@
 //  Выполнение алгоритмов
 //  Экспорты
 
-import {deactivateState, activateState, formMain} from './form.js';
+import {activateState, formMain} from './form.js';
 import {createCard} from './card.js';
-import {ADVERTISEMENT_NUMBER, createAdvertisement} from './data.js';
 
 const TOKYO_LAT = 35.6895;
 const TOKYO_LNG = 139.692;
@@ -49,16 +48,16 @@ const initMap = (allAdvertisements) => {
     activateState();
     address.value = `${TOKYO_LAT}, ${TOKYO_LNG}`;
   })
-  .setView({
-    lat: TOKYO_LAT,
-    lng: TOKYO_LNG,
-  }, MAIN_ZOOM);
-window.L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  },
-).addTo(map);
+    .setView({
+      lat: TOKYO_LAT,
+      lng: TOKYO_LNG,
+    }, MAIN_ZOOM);
+  window.L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    },
+  ).addTo(map);
 
   redPin.on('moveend', (evt) => {
     address.value = `${evt.target.getLatLng().lat.toFixed(5)},
@@ -85,4 +84,4 @@ const setAddress = () => {
 
 const redPin = createMainPin(TOKYO_LAT, TOKYO_LNG);
 
- export {initMap,resetMainMarker, setAddress};
+export {initMap,resetMainMarker, setAddress};
