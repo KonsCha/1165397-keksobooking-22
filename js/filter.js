@@ -33,8 +33,8 @@ const getAdTitle = (value) => {
 }
 
 const checkAmount = () => {
-  const rooms = roomNumber.value;
-  const capacityAmount = capacity.value;
+  const rooms = parseInt(roomNumber.value, 10);
+  const capacityAmount = parseInt(capacity.value, 10);
 
   if (rooms === MAX_ROOMS_NUMBER && capacityAmount !== '0') {
     capacity.setCustomValidity('Выберите вариант "Не для гостей"');
