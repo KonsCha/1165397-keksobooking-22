@@ -6,10 +6,12 @@ import {initMap} from './map.js';
 import {deactivateState, setUserFormSubmit, setFormReset} from './form.js';
 import {showAlert} from './utils.js';
 import './utils.js';
+import {addFilterListener} from './filter.js';
 
 deactivateState();
 getData((advertisement) => {
-  initMap(advertisement)
+  initMap(advertisement);
+  addFilterListener(advertisement)
 },
 () => {
   showAlert('Не удалось загрузить данные');

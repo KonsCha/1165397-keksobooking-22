@@ -1,5 +1,24 @@
 import {formMain} from './form.js';
 
+import {reRenderMarkers} from './map.js';
+
+
+const mapForm = document.querySelector('.map__filters');
+const houseType = mapForm.querySelector('#housing-type');
+
+function addFilterListener(offers) {
+  houseType.addEventListener('change', function () {
+
+    // создаем коллекцию подходящих элементов
+    if (houseType.value === 'any') {
+      reRenderMarkers(offers);
+    } else {
+      const filteredOffers = offers.filter((item) => item.offer.type === houseType.value);
+      reRenderMarkers(filteredOffers);
+    }
+  });
+}
+
 const MIN_AD_LENGTH = 30;
 const MAX_AD_LENGTH = 100;
 const MAX_PRICE = 1000000;
@@ -83,3 +102,5 @@ capacity.addEventListener('change', () => {
 roomNumber.addEventListener('change', () => {
   checkAmount();
 })
+
+export {addFilterListener};
