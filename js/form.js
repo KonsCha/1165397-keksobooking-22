@@ -74,4 +74,4 @@ const setFormReset = () => {
 };
 
 
-export {deactivateState, activateState, setUserFormSubmit, setFormReset, formMain};
+export {deactivateState, activateState, setUserFormSubmit, setFormReset, formMain, mapFilters};

@@ -1,23 +1,5 @@
-import {formMain} from './form.js';
-
+import {formMain, mapFilters} from './form.js';
 import {reRenderMarkers} from './map.js';
-
-
-const mapForm = document.querySelector('.map__filters');
-const houseType = mapForm.querySelector('#housing-type');
-
-function addFilterListener(offers) {
-  houseType.addEventListener('change', function () {
-
-    // создаем коллекцию подходящих элементов
-    if (houseType.value === 'any') {
-      reRenderMarkers(offers);
-    } else {
-      const filteredOffers = offers.filter((item) => item.offer.type === houseType.value);
-      reRenderMarkers(filteredOffers);
-    }
-  });
-}
 
 const MIN_AD_LENGTH = 30;
 const MAX_AD_LENGTH = 100;
@@ -31,6 +13,11 @@ const timeIn = formMain.querySelector('#timein');
 const timeOut = formMain.querySelector('#timeout');
 const roomNumber = formMain.querySelector('#room_number');
 const capacity = formMain.querySelector('#capacity');
+const houseType = mapFilters.querySelector('#housing-type');
+const housePrice = mapFilters.querySelector('#housing-price');
+const houseRooms = mapFilters.querySelector('#housing-rooms');
+const houseGuests = mapFilters.querySelector('#housing-guests');
+const houseFeatures = mapFilters.querySelector('#housing-features');
 
 const minPriceTypes = {
   flat: 1000,
@@ -38,6 +25,18 @@ const minPriceTypes = {
   house: 5000,
   palace: 10000,
 };
+
+function addFilterListener(offers) {
+  houseType.addEventListener('change', function () {
+
+    if (houseType.value === 'any') {
+      reRenderMarkers(offers);
+    } else {
+      const filteredOffers = offers.filter((item) => item.offer.type === houseType.value);
+      reRenderMarkers(filteredOffers);
+    }
+  });
+}
 
 const getAdTitle = (value) => {
   if (value < MIN_AD_LENGTH) {
