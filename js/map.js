@@ -43,7 +43,7 @@ const createMainPin = (lat, lng) => {
   }));
 }
 
-const initMap = (allAdvertisements) => {
+const initMap = () => {
   map.on('load', () => {
     activateState();
     address.value = `${TOKYO_LAT}, ${TOKYO_LNG}`;
@@ -80,24 +80,24 @@ const redPin = createMainPin(TOKYO_LAT, TOKYO_LNG);
 
 let pinList = [];
 
-function removeMarkers() {
-  pinList.forEach((marker) => map.removeLayer(marker));
+const removeMarkers = () => {
+  pinList.length = 0;
+  // или pinList = [];
 }
 
 // размещает маркеры предложений на карту
-function renderToMap(allAdvertisements) {
+const  renderToMap = (allAdvertisements) => {
 
   allAdvertisements.slice(0, 10).forEach((advertisement) => {
-    const pin = createPin(advertisement.location.lat, advertisement.location.lng);
-    pin.addTo(map);
-    pin.bindPopup(() => createCard(advertisement));
+    createPin(advertisement.location.lat, advertisement.location.lng).addTo(map).bindPopup(() => createCard(advertisement));
+    pinList.push(createPin);
   });
 }
 
 // перерисовывает маркеры после удаления
-function reRenderMarkers(allAdvertisements) {
+const reRenderMarkers = (allAdvertisements) => {
   removeMarkers();
   renderToMap(allAdvertisements);
 }
 
-export {initMap, resetMainMarker, setAddress, reRenderMarkers};
+export {initMap, resetMainMarker, setAddress, reRenderMarkers, renderToMap};

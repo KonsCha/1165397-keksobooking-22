@@ -26,13 +26,18 @@ const minPriceTypes = {
   palace: 10000,
 };
 
-function addFilterListener(offers) {
+const addFilterListener = (offers) => {
   houseType.addEventListener('change', function () {
 
     if (houseType.value === 'any') {
       reRenderMarkers(offers);
     } else {
-      const filteredOffers = offers.filter((item) => item.offer.type === houseType.value);
+    const filteredOffers = [];
+      for (let offer of offers) {
+        if (offer <= 10) {
+            filteredOffers.push(offer);
+        }
+      }
       reRenderMarkers(filteredOffers);
     }
   });
