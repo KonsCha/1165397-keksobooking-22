@@ -29,19 +29,23 @@ const minPriceTypes = {
 const addFilterListener = (offers) => {
   houseType.addEventListener('change', function () {
 
-    if (houseType.value === 'any') {
-      reRenderMarkers(offers);
-    } else {
+    const checkFilterConditions = (offer) => {
+      return houseType.value === 'any' || houseType.value === offer.type;
+  }
+
     const filteredOffers = [];
-      for (let offer of offers) {
-        if (offer <= 10) {
-            filteredOffers.push(offer);
+    for (let offer of offers) {
+      if (checkFilterConditions(offer)) {
+        filteredOffers.push(offer);
+        if (filteredOffers.length >= 10) {
+          break;
         }
       }
-      reRenderMarkers(filteredOffers);
     }
+    reRenderMarkers(filteredOffers);
   });
 }
+
 
 const getAdTitle = (value) => {
   if (value < MIN_AD_LENGTH) {
