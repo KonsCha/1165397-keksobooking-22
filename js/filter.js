@@ -1,9 +1,11 @@
-import {formMain} from './form.js';
+import {formMain, mapFilters} from './form.js';
+import {reRenderMarkers} from './map.js';
 
 const MIN_AD_LENGTH = 30;
 const MAX_AD_LENGTH = 100;
 const MAX_PRICE = 1000000;
 const MAX_ROOMS_NUMBER = 100;
+const MAX_NUMBER_OF_PINS = 10;
 
 const type = formMain.querySelector('#type');
 const title = formMain.querySelector('#title');
@@ -12,6 +14,11 @@ const timeIn = formMain.querySelector('#timein');
 const timeOut = formMain.querySelector('#timeout');
 const roomNumber = formMain.querySelector('#room_number');
 const capacity = formMain.querySelector('#capacity');
+const houseType = mapFilters.querySelector('#housing-type');
+const housePrice = mapFilters.querySelector('#housing-price');
+const houseRooms = mapFilters.querySelector('#housing-rooms');
+const houseGuests = mapFilters.querySelector('#housing-guests');
+const houseFeatures = mapFilters.querySelector('#housing-features');
 
 const minPriceTypes = {
   flat: 1000,
@@ -19,6 +26,27 @@ const minPriceTypes = {
   house: 5000,
   palace: 10000,
 };
+
+const checkFilterConditions = (offer) => {
+  return houseType.value === 'any' || houseType.value === offer.type;
+}
+
+const addFilterListener = (offers) => {
+  houseType.addEventListener('change', function () {
+
+    const filteredOffers = [];
+    for (let offer of offers) {
+      if (checkFilterConditions(offer.offer)) {
+        filteredOffers.push(offer);
+        if (filteredOffers.length >= MAX_NUMBER_OF_PINS) {
+          break;
+        }
+      }
+    }
+    reRenderMarkers(filteredOffers);
+  });
+}
+
 
 const getAdTitle = (value) => {
   if (value < MIN_AD_LENGTH) {
@@ -83,3 +111,5 @@ capacity.addEventListener('change', () => {
 roomNumber.addEventListener('change', () => {
   checkAmount();
 })
+
+export {addFilterListener};
