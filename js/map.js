@@ -78,19 +78,20 @@ const setAddress = () => {
 
 const redPin = createMainPin(TOKYO_LAT, TOKYO_LNG);
 
-let pinList = [];
+const pinList = [];
 
 const removeMarkers = () => {
-  pinList.length = 0;
-  // или pinList = [];
+  pinList.forEach((marker) => {
+    marker.remove();
+  })
 }
 
 // размещает маркеры предложений на карту
 const  renderToMap = (allAdvertisements) => {
 
   allAdvertisements.slice(0, 10).forEach((advertisement) => {
-    createPin(advertisement.location.lat, advertisement.location.lng).addTo(map).bindPopup(() => createCard(advertisement));
-    pinList.push(createPin);
+    const pin = createPin(advertisement.location.lat, advertisement.location.lng).addTo(map).bindPopup(() => createCard(advertisement));
+    pinList.push(pin);
   });
 }
 

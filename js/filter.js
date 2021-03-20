@@ -5,6 +5,7 @@ const MIN_AD_LENGTH = 30;
 const MAX_AD_LENGTH = 100;
 const MAX_PRICE = 1000000;
 const MAX_ROOMS_NUMBER = 100;
+const MAX_NUMBER_OF_PINS = 10;
 
 const type = formMain.querySelector('#type');
 const title = formMain.querySelector('#title');
@@ -26,18 +27,18 @@ const minPriceTypes = {
   palace: 10000,
 };
 
+const checkFilterConditions = (offer) => {
+  return houseType.value === 'any' || houseType.value === offer.type;
+}
+
 const addFilterListener = (offers) => {
   houseType.addEventListener('change', function () {
 
-    const checkFilterConditions = (offer) => {
-      return houseType.value === 'any' || houseType.value === offer.type;
-  }
-
     const filteredOffers = [];
     for (let offer of offers) {
-      if (checkFilterConditions(offer)) {
+      if (checkFilterConditions(offer.offer)) {
         filteredOffers.push(offer);
-        if (filteredOffers.length >= 10) {
+        if (filteredOffers.length >= MAX_NUMBER_OF_PINS) {
           break;
         }
       }
