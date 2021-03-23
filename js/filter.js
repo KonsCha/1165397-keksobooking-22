@@ -1,5 +1,6 @@
 import {mapFilters} from './form.js';
 import {reRenderMarkers} from './map.js';
+import {debounce} from './utils.js';
 
 const MAX_NUMBER_OF_PINS = 10;
 const DEBOUNCE_TIME = 500;
@@ -20,17 +21,6 @@ const PriceRange = {
 };
 
 const selects = mapFilters.querySelectorAll('select');
-
-const debounce = (fn, ms) => {
-  let timeout;
-  return function () {
-    const fnCall = () => {
-      fn.apply(this, arguments);
-    }
-    clearTimeout(timeout);
-    timeout = setTimeout(fnCall, ms);
-  };
-}
 
 const checkPrice = (value, range) => {
   const settings = PriceRange[value];
@@ -74,20 +64,15 @@ const matchFeaturesForOffer = (offer) => {
 }
 
 const orderFilter = (items) => {
-  let filteredOffers = [];
-
-  items.some((offerItem) => {
-    // выходим из цикла если есть уже 10 элементов
-    if (filteredOffers.length >= MAX_NUMBER_OF_PINS) {
-      return true;
-    }
-
-    // здесь делаем проверки подходит ли оффер для того чтоб показать его на карте
+  const filteredOffers = [];
+  for (let offerItem of items) {
     if (matchSelectsForOffer(offerItem.offer) && matchFeaturesForOffer(offerItem.offer)) {
       filteredOffers.push(offerItem);
+      if (filteredOffers.length >= MAX_NUMBER_OF_PINS) {
+        break;
+      }
     }
-  });
-
+  };
   reRenderMarkers(filteredOffers);
 }
 

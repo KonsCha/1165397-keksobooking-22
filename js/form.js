@@ -38,9 +38,7 @@ const getAdTitle = (value) => {
   if (value > MAX_AD_LENGTH) {
     return 'Удалите лишние символы.';
   }
-  else {
-    return '';
-  }
+  return '';
 }
 
 const checkAmount = () => {
