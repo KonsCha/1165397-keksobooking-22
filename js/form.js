@@ -6,7 +6,7 @@
 //  Экспорты
 
 import {sendData} from './server-data.js';
-import {resetMainMarker, setAddress} from './map.js';
+import {renderToMap, resetMainMarker, setAddress} from './map.js';
 import {showSuccessMessage, showErrorMessage} from './messages.js';
 
 const MIN_AD_LENGTH = 30;
@@ -84,9 +84,10 @@ const activateState = () => {
   });
 }
 
-const resetForm = () => {
+const resetForm = (advertisement) => {
   formMain.reset();
   mapFilters.reset();
+  renderToMap(advertisement);
   resetMainMarker();
   setAddress();
 }

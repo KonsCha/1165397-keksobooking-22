@@ -9,6 +9,7 @@ import './utils.js';
 import {addFilterListener} from './filter.js';
 
 deactivateState();
+
 getData((advertisement) => {
   initMap(advertisement);
   addFilterListener(advertisement);
