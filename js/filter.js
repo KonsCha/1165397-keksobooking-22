@@ -5,15 +5,17 @@ const MAX_NUMBER_OF_PINS = 10;
 const DEBOUNCE_TIME = 500;
 
 const PriceRange = {
-  LOW: {
+  low: {
+    MIN: 0,
     MAX: 10000,
   },
-  MIDDLE: {
+  middle: {
     MIN: 10000,
     MAX: 50000,
   },
-  HIGH: {
+  high: {
     MIN: 50000,
+    MAX: Infinity,
   },
 };
 
@@ -31,16 +33,9 @@ const debounce = (fn, ms) => {
 }
 
 const checkPrice = (value, range) => {
-
-  switch (value) {
-    case 'low':
-      return range <= PriceRange.LOW.MAX;
-    case 'middle':
-      return range >= PriceRange.MIDDLE.MIN && range <= PriceRange.MIDDLE.MAX;
-    case 'high':
-      return range >= PriceRange.HIGH.MIN;
-    default:
-      return false;
+  const settings = PriceRange[value];
+  if (settings) {
+    return range >= settings.MIN && range <= settings.MAX;
   }
 }
 
@@ -57,9 +52,7 @@ const matchSelect = (offer, selectType, selectValue) => {
     return checkPrice(selectValue, offer[selectType]);
   }
 
-  // if (selectType === 'type' || selectType === 'rooms' || selectType === 'guests')) {
   return selectValue === offer[selectType].toString(); // если значение из карточки = выбранному в фильтре значению, возвращаем true для совпавших
-
 }
 
 // функция проверки всеx селектов для оффера
@@ -77,17 +70,7 @@ const matchFeaturesForOffer = (offer) => {
   const features = mapFilters.querySelectorAll('input:checked');
   const filterFeatureList = Array.from(features);
 
-  if (filterFeatureList.length === 0 || offer.features.length === 0) {
-    return true;
-  }
-
-  if (offer.features.length < filterFeatureList.length) {
-    return false;
-  }
-
-  return filterFeatureList.every((feature) => {
-    return offer.features.includes(feature.value);
-  });
+  return filterFeatureList.length === 0 || offer.features.length === 0
 }
 
 const orderFilter = (items) => {
