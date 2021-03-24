@@ -12,7 +12,6 @@ const getData = (onSuccess, onError) => {
     .catch(onError);
 };
 
-
 const sendData = (onSuccess, onError, body) => {
   fetch(
     'https://22.javascript.pages.academy/keksobooking',

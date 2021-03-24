@@ -1,10 +1,3 @@
-//  Cоблюдай порядок:
-//  Импорты
-//  Константы
-//  Объявления функций
-//  Выполнение алгоритмов
-//  Экспорты
-
 import {sendData} from './server-data.js';
 import {renderToMap, resetMainMarker, setAddress} from './map.js';
 import {showSuccessMessage, showErrorMessage} from './messages.js';
@@ -154,6 +147,5 @@ capacity.addEventListener('change', () => {
 roomNumber.addEventListener('change', () => {
   checkAmount();
 })
-
 
 export {deactivateState, activateState, setUserFormSubmit, setFormReset, formMain, mapFilters};

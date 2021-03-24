@@ -1,7 +1,5 @@
 const ALERT_SHOW_TIME = 5000;
 
-// Дизайн блока с сообщением об ошибке
-
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = 100;
@@ -23,13 +21,9 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 }
 
-//закрытие с помощью Esc
-
 const isEscEvent = (evt) => {
   return evt.key === 'Escape' || evt.key === 'Esc';
 };
-
-// Функция устранения дребезга
 
 const debounce = (cb, ms) => {
   let timer;

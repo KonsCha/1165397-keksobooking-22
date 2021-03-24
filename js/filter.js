@@ -29,9 +29,6 @@ const checkPrice = (value, range) => {
   }
 }
 
-// в этой функции описываем все проверки селектов
-// selectType - типы фильтров из фильтров
-
 const matchSelect = (offer, selectType, selectValue) => {
 
   if (selectValue === 'any') {
@@ -42,17 +39,15 @@ const matchSelect = (offer, selectType, selectValue) => {
     return checkPrice(selectValue, offer[selectType]);
   }
 
-  return selectValue === offer[selectType].toString(); // если значение из карточки = выбранному в фильтре значению, возвращаем true для совпавших
+  return selectValue === offer[selectType].toString();
 }
 
-// функция проверки всеx селектов для оффера
-
 const matchSelectsForOffer = (offer) => {
-  const array = Array.from(selects); // создает массив из коллекции(selects) полученных ДОМ элементов
+  const array = Array.from(selects);
 
-  return array.every((select) => { // проверяет циклом все селекты(фильтры), удовлетворяют ли ВСЕ элементы (type, rooms, price...) массива условию, заданному в передаваемой функции
+  return array.every((select) => {
     const selectPropType = select.name.split('-')[1];
-    return matchSelect(offer, selectPropType, select.value); // возвращает карточку(offer)
+    return matchSelect(offer, selectPropType, select.value);
   });
 }
 
