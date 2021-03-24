@@ -1,25 +1,30 @@
-import {mapFilters} from './form.js';
-import {reRenderMarkers} from './map.js';
+import {reproduceMarkers} from './map.js';
 import {debounce} from './utils.js';
 
 const MAX_NUMBER_OF_PINS = 10;
 const DEBOUNCE_TIME = 500;
+const MIN_LOW_PRICE_RANGE = 0;
+const MAX_LOW_PRICE_RANGE = 10000;
+const MIN_MIDDLE_PRICE_RANGE = 10000;
+const MAX_MIDDLE_PRICE_RANGE = 50000;
+const MIN_HIGH_PRICE_RANGE = 50000;
 
 const PriceRange = {
   low: {
-    MIN: 0,
-    MAX: 10000,
+    MIN: MIN_LOW_PRICE_RANGE,
+    MAX: MAX_LOW_PRICE_RANGE,
   },
   middle: {
-    MIN: 10000,
-    MAX: 50000,
+    MIN: MIN_MIDDLE_PRICE_RANGE,
+    MAX: MAX_MIDDLE_PRICE_RANGE,
   },
   high: {
-    MIN: 50000,
+    MIN: MIN_HIGH_PRICE_RANGE,
     MAX: Infinity,
   },
 };
 
+const mapFilters = document.querySelector('.map__filters');
 const selects = mapFilters.querySelectorAll('select');
 
 const checkPrice = (value, range) => {
@@ -68,7 +73,7 @@ const orderFilter = (items) => {
       }
     }
   }
-  reRenderMarkers(filteredOffers);
+  reproduceMarkers(filteredOffers);
 }
 
 const addFilterListener = (offers) => {
@@ -77,4 +82,4 @@ const addFilterListener = (offers) => {
   mapFilters.addEventListener('change', onFilterChange);
 }
 
-export {addFilterListener};
+export {addFilterListener, MAX_NUMBER_OF_PINS};
