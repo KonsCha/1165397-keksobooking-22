@@ -9,15 +9,15 @@ import './utils.js';
 import {addFilterListener} from './filter.js';
 
 deactivateState();
+
 getData((advertisement) => {
   initMap(advertisement);
   addFilterListener(advertisement);
   renderToMap(advertisement);
+  setUserFormSubmit(advertisement);
+  setFormReset(advertisement);
 },
 () => {
   showAlert('Не удалось загрузить данные');
 },
 );
-
-setUserFormSubmit();
-setFormReset();

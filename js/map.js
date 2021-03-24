@@ -11,6 +11,10 @@ import {createCard} from './card.js';
 const TOKYO_LAT = 35.6895;
 const TOKYO_LNG = 139.692;
 const MAIN_ZOOM = 8;
+const MAIN_PIN_WIDTH = 46;
+const MAIN_PIN_HEIGHT = 46;
+const OFFER_PIN_WIDTH = 40;
+const OFFER_PIN_HEIGHT = 40;
 
 const address = formMain.querySelector('#address');
 
@@ -30,16 +34,16 @@ const createMarker = (lat, lng, draggable, icon) => {
 const createPin = (lat, lng) => {
   return createMarker(lat, lng, false, window.L.icon({
     iconUrl: 'img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+    iconSize: [OFFER_PIN_WIDTH, OFFER_PIN_HEIGHT],
+    iconAnchor: [OFFER_PIN_WIDTH / 2, OFFER_PIN_HEIGHT],
   }));
 }
 
 const createMainPin = (lat, lng) => {
   return createMarker(lat, lng, true, window.L.icon({
     iconUrl: 'img/main-pin.svg',
-    iconSize: [46, 46],
-    iconAnchor: [23, 46],
+    iconSize: [MAIN_PIN_WIDTH, MAIN_PIN_HEIGHT],
+    iconAnchor: [MAIN_PIN_WIDTH / 2, MAIN_PIN_HEIGHT],
   }));
 }
 

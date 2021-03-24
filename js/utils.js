@@ -29,4 +29,18 @@ const isEscEvent = (evt) => {
   return evt.key === 'Escape' || evt.key === 'Esc';
 };
 
-export {showAlert, isEscEvent};
+// Функция устранения дребезга
+
+const debounce = (cb, ms) => {
+  let timer;
+
+  return () => {
+    if (timer) {
+      window.clearTimeout(timer);
+    }
+
+    timer = setTimeout(() => cb(), ms)
+  }
+};
+
+export {showAlert, isEscEvent, debounce};

@@ -1,115 +1,85 @@
-import {formMain, mapFilters} from './form.js';
+import {mapFilters} from './form.js';
 import {reRenderMarkers} from './map.js';
+import {debounce} from './utils.js';
 
-const MIN_AD_LENGTH = 30;
-const MAX_AD_LENGTH = 100;
-const MAX_PRICE = 1000000;
-const MAX_ROOMS_NUMBER = 100;
 const MAX_NUMBER_OF_PINS = 10;
+const DEBOUNCE_TIME = 500;
 
-const type = formMain.querySelector('#type');
-const title = formMain.querySelector('#title');
-const price = formMain.querySelector('#price');
-const timeIn = formMain.querySelector('#timein');
-const timeOut = formMain.querySelector('#timeout');
-const roomNumber = formMain.querySelector('#room_number');
-const capacity = formMain.querySelector('#capacity');
-const houseType = mapFilters.querySelector('#housing-type');
-const housePrice = mapFilters.querySelector('#housing-price');
-const houseRooms = mapFilters.querySelector('#housing-rooms');
-const houseGuests = mapFilters.querySelector('#housing-guests');
-const houseFeatures = mapFilters.querySelector('#housing-features');
-
-const minPriceTypes = {
-  flat: 1000,
-  bungalow: 0,
-  house: 5000,
-  palace: 10000,
+const PriceRange = {
+  low: {
+    MIN: 0,
+    MAX: 10000,
+  },
+  middle: {
+    MIN: 10000,
+    MAX: 50000,
+  },
+  high: {
+    MIN: 50000,
+    MAX: Infinity,
+  },
 };
 
-const checkFilterConditions = (offer) => {
-  return houseType.value === 'any' || houseType.value === offer.type;
+const selects = mapFilters.querySelectorAll('select');
+
+const checkPrice = (value, range) => {
+  const settings = PriceRange[value];
+  if (settings) {
+    return range >= settings.MIN && range <= settings.MAX;
+  }
 }
 
-const addFilterListener = (offers) => {
-  houseType.addEventListener('change', function () {
+// в этой функции описываем все проверки селектов
+// selectType - типы фильтров из фильтров
 
-    const filteredOffers = [];
-    for (let offer of offers) {
-      if (checkFilterConditions(offer.offer)) {
-        filteredOffers.push(offer);
-        if (filteredOffers.length >= MAX_NUMBER_OF_PINS) {
-          break;
-        }
-      }
-    }
-    reRenderMarkers(filteredOffers);
+const matchSelect = (offer, selectType, selectValue) => {
+
+  if (selectValue === 'any') {
+    return true;
+  }
+
+  if (selectType === 'price') {
+    return checkPrice(selectValue, offer[selectType]);
+  }
+
+  return selectValue === offer[selectType].toString(); // если значение из карточки = выбранному в фильтре значению, возвращаем true для совпавших
+}
+
+// функция проверки всеx селектов для оффера
+
+const matchSelectsForOffer = (offer) => {
+  const array = Array.from(selects); // создает массив из коллекции(selects) полученных ДОМ элементов
+
+  return array.every((select) => { // проверяет циклом все селекты(фильтры), удовлетворяют ли ВСЕ элементы (type, rooms, price...) массива условию, заданному в передаваемой функции
+    const selectPropType = select.name.split('-')[1];
+    return matchSelect(offer, selectPropType, select.value); // возвращает карточку(offer)
   });
 }
 
+const matchFeaturesForOffer = (offer) => {
+  const features = mapFilters.querySelectorAll('input:checked');
+  const filterFeatureList = Array.from(features);
 
-const getAdTitle = (value) => {
-  if (value < MIN_AD_LENGTH) {
-    return 'Добавьте больше символов.';
-  }
-  if (value > MAX_AD_LENGTH) {
-    return 'Удалите лишние символы.';
-  }
-  else {
-    return '';
-  }
+  return filterFeatureList.length === 0 || offer.features.length === 0
 }
 
-const checkAmount = () => {
-  const rooms = roomNumber.value;
-  const capacityAmount = capacity.value;
-
-  if (rooms === MAX_ROOMS_NUMBER && capacityAmount !== '0') {
-    capacity.setCustomValidity('Выберите вариант "Не для гостей"');
-  } else if (rooms < capacityAmount) {
-    capacity.setCustomValidity('Выберите меньшее число гостей');
-  } else {
-    capacity.setCustomValidity('');
+const orderFilter = (items) => {
+  const filteredOffers = [];
+  for (let offerItem of items) {
+    if (matchSelectsForOffer(offerItem.offer) && matchFeaturesForOffer(offerItem.offer)) {
+      filteredOffers.push(offerItem);
+      if (filteredOffers.length >= MAX_NUMBER_OF_PINS) {
+        break;
+      }
+    }
   }
+  reRenderMarkers(filteredOffers);
 }
 
-type.addEventListener('change', () => {
-  price.min = minPriceTypes[type.value];
-  price.placeholder = minPriceTypes[type.value];
-});
+const addFilterListener = (offers) => {
+  const onFilterChange = debounce(() => orderFilter(offers), DEBOUNCE_TIME);
 
-timeIn.addEventListener('change', () => {
-  timeOut.value = timeIn.value;
-});
-
-timeOut.addEventListener('change', () => {
-  timeIn.value = timeOut.value;
-});
-
-title.addEventListener('input', () => {
-  title.setCustomValidity(getAdTitle(title.value.length));
-  title.reportValidity();
-});
-
-price.addEventListener('input', () => {
-  const priceValue = price.value;
-  price.min = minPriceTypes[type.value];
-
-  if (priceValue > MAX_PRICE) {
-    price.setCustomValidity(`Цена не может быть больше чем ${MAX_PRICE}`);
-  } else if (priceValue < price.min) {
-    price.setCustomValidity(`Стоимость не должна быть меньше чем ${price.min}`);
-  } else {
-    price.setCustomValidity('');
-  }
-});
-
-capacity.addEventListener('change', () => {
-  checkAmount();
-})
-
-roomNumber.addEventListener('change', () => {
-  checkAmount();
-})
+  mapFilters.addEventListener('change', onFilterChange);
+}
 
 export {addFilterListener};
