@@ -92,14 +92,14 @@ const resetForm = (advertisement) => {
   setAddress();
 }
 
-const setUserFormSubmit = () => {
+const setUserFormSubmit = (advertisement) => {
   formMain.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     sendData(
       () => {
         showSuccessMessage();
-        resetForm();
+        resetForm(advertisement);
       },
       () => showErrorMessage(),
       new FormData(evt.target),
@@ -107,12 +107,12 @@ const setUserFormSubmit = () => {
   });
 };
 
-const setFormReset = () => {
+const setFormReset = (advertisement) => {
   const resetButton = formMain.querySelector('.ad-form__reset');
 
   resetButton.addEventListener('click', (evt) => {
     evt.preventDefault();
-    resetForm();
+    resetForm(advertisement);
   })
 };
 
