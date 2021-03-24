@@ -11,21 +11,21 @@ const onPopupEscKeydown = (evt) => {
   }
 }
 
-const clickToCloseMessage = (evt) => {
+const onClickToCloseMessage = (evt) => {
   evt.preventDefault();
   closeMessage();
 };
 
 const closeMessage = () => {
   document.querySelectorAll('.success, .error').forEach((message) => message.remove());
-  document.removeEventListener('click', clickToCloseMessage);
+  document.removeEventListener('click', onClickToCloseMessage);
   document.removeEventListener('keydown', onPopupEscKeydown);
 };
 
 const showMessage = (message) => {
   message.classList.remove('hidden');
   message.style.zIndex = '9999999';
-  document.addEventListener('click', clickToCloseMessage);
+  document.addEventListener('click', onClickToCloseMessage);
   document.addEventListener('keydown', onPopupEscKeydown);
   document.body.appendChild(message);
 };
