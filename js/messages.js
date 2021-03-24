@@ -11,23 +11,23 @@ const onPopupEscKeydown = (evt) => {
   }
 }
 
-const onClick = (evt) => {
+const onClickToCloseMessage = (evt) => {
   evt.preventDefault();
   closeMessage();
 };
 
 const closeMessage = () => {
   document.querySelectorAll('.success, .error').forEach((message) => message.remove());
-  document.removeEventListener('click', onClick);
+  document.removeEventListener('click', onClickToCloseMessage);
   document.removeEventListener('keydown', onPopupEscKeydown);
 };
 
 const showMessage = (message) => {
-  document.body.appendChild(message);
   message.classList.remove('hidden');
   message.style.zIndex = '9999999';
-  document.addEventListener('click', onClick);
+  document.addEventListener('click', onClickToCloseMessage);
   document.addEventListener('keydown', onPopupEscKeydown);
+  document.body.appendChild(message);
 };
 
 const showSuccessMessage = () => {

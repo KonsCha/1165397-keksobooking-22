@@ -1,5 +1,6 @@
-import {activateState, formMain} from './form.js';
+import {activateState} from './form.js';
 import {createCard} from './card.js';
+import {MAX_NUMBER_OF_PINS} from './filter.js';
 
 const TOKYO_LAT = 35.6895;
 const TOKYO_LNG = 139.692;
@@ -9,6 +10,7 @@ const MAIN_PIN_HEIGHT = 46;
 const OFFER_PIN_WIDTH = 40;
 const OFFER_PIN_HEIGHT = 40;
 
+const formMain = document.querySelector('.ad-form');
 const address = formMain.querySelector('#address');
 
 const map = window.L.map('map-canvas');
@@ -85,15 +87,15 @@ const removeMarkers = () => {
 
 const  renderToMap = (allAdvertisements) => {
 
-  allAdvertisements.slice(0, 10).forEach((advertisement) => {
+  allAdvertisements.slice(0, MAX_NUMBER_OF_PINS).forEach((advertisement) => {
     const pin = createPin(advertisement.location.lat, advertisement.location.lng).addTo(map).bindPopup(() => createCard(advertisement));
     pinList.push(pin);
   });
 }
 
-const reRenderMarkers = (allAdvertisements) => {
+const reproduceMarkers = (allAdvertisements) => {
   removeMarkers();
   renderToMap(allAdvertisements);
 }
 
-export {initMap, resetMainMarker, setAddress, reRenderMarkers, renderToMap};
+export {initMap, resetMainMarker, setAddress, reproduceMarkers, renderToMap};

@@ -6,6 +6,10 @@ const MIN_AD_LENGTH = 30;
 const MAX_AD_LENGTH = 100;
 const MAX_PRICE = 1000000;
 const MAX_ROOMS_NUMBER = 100;
+const MIN_PRICE_OF_FLAT = 1000;
+const MIN_PRICE_OF_BUNGALOW = 0;
+const MIN_PRICE_OF_HOUSE = 5000;
+const MIN_PRICE_OF_PALACE = 10000;
 
 const formMain = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
@@ -18,10 +22,10 @@ const roomNumber = formMain.querySelector('#room_number');
 const capacity = formMain.querySelector('#capacity');
 
 const minPriceTypes = {
-  flat: 1000,
-  bungalow: 0,
-  house: 5000,
-  palace: 10000,
+  flat: MIN_PRICE_OF_FLAT,
+  bungalow: MIN_PRICE_OF_BUNGALOW,
+  house: MIN_PRICE_OF_HOUSE,
+  palace: MIN_PRICE_OF_PALACE,
 };
 
 const getAdTitle = (value) => {
@@ -148,4 +152,4 @@ roomNumber.addEventListener('change', () => {
   checkAmount();
 })
 
-export {deactivateState, activateState, setUserFormSubmit, setFormReset, formMain, mapFilters};
+export {deactivateState, activateState, setUserFormSubmit, setFormReset};
