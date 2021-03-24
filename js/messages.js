@@ -1,14 +1,8 @@
 import {isEscEvent} from './utils.js';
 
-//Находим шаблон сообщения success
-
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 
-//Находим шаблон сообщения error
-
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
-
-//Закрытие сообщения через Esc
 
 const onPopupEscKeydown = (evt) => {
   if (isEscEvent(evt)) {
@@ -16,8 +10,6 @@ const onPopupEscKeydown = (evt) => {
     closeMessage();
   }
 }
-
-//Закрытие сообщения по клику на пустое место
 
 const onClick = (evt) => {
   evt.preventDefault();

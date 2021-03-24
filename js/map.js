@@ -1,10 +1,3 @@
-//  Cоблюдай порядок:
-//  Импорты
-//  Константы
-//  Объявления функций
-//  Выполнение алгоритмов
-//  Экспорты
-
 import {activateState, formMain} from './form.js';
 import {createCard} from './card.js';
 
@@ -90,7 +83,6 @@ const removeMarkers = () => {
   })
 }
 
-// размещает маркеры предложений на карту
 const  renderToMap = (allAdvertisements) => {
 
   allAdvertisements.slice(0, 10).forEach((advertisement) => {
@@ -99,7 +91,6 @@ const  renderToMap = (allAdvertisements) => {
   });
 }
 
-// перерисовывает маркеры после удаления
 const reRenderMarkers = (allAdvertisements) => {
   removeMarkers();
   renderToMap(allAdvertisements);
