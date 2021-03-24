@@ -72,7 +72,7 @@ const orderFilter = (items) => {
         break;
       }
     }
-  };
+  }
   reRenderMarkers(filteredOffers);
 }
 
